@@ -1,14 +1,35 @@
 <template>
-    <h1>This is a Shopping Cart Page</h1>
+  <div id="page-wrap">
+    <h1>Shopping Cart</h1>
+    <ProductsList :products="cartItems"/>
+    <h3 id="total-price">Total: ${{ totalPrice }}</h3>
+    <button id="checkout-button">Proceed to Checkout</button>
+  </div>
 </template>
 
-
 <script>
+import { cartItems } from '../fake-data';
+import ProductsList from '../components/ProductsList.vue';
 export default {
-    name: "CartPage"
-}
+    name: 'CartPage',
+    components: {
+      ProductsList,
+    },
+    data() {
+      return {
+        cartItems,
+      }
+    },
+    computed: {
+      totalPrice() {
+        return this.cartItems.reduce(
+          (sum, item) => sum + Number(item.price),
+          0,
+        );
+      }
+    }
+};
 </script>
-
 
 <style scoped>
   h1 {
